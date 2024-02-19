@@ -13,6 +13,13 @@ body {
 }
 
 main {
+    border: 2px solid darkgreen;
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper {
+    border: 2px solid blue;
     background-color: burlywood;
     height: 100%;
     width: 100%;
@@ -50,4 +57,9 @@ main {
 .language-button {
     font-size: 25px;
     cursor: pointer;
+}
+
+#menu-header {
+    border: 2px solid darkcyan;
+    width: 100%;
 }
