@@ -34,13 +34,14 @@ main {
     height: 100px;
     width: 100px;
     margin-top: 50px;
+    // TODO center it
 }
 
 #where-you-eat {
     border: 2px solid green;
-
 }
 
+// TODO replace with class
 #choice-wrapper,
 #language-wrapper {
     border: 2px solid green;
@@ -51,11 +52,13 @@ main {
 .choice-button {
     font-size: 50px;
     width: 200px;
-    cursor: pointer;
 }
 
 .language-button {
     font-size: 25px;
+}
+
+button {
     cursor: pointer;
 }
 

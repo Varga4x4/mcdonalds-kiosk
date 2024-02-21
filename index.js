@@ -1,79 +1,147 @@
-(() => {
-    // ELEMENTS
-    const welcomeScreenWrapper = document.getElementById("welcome-screen-wrapper")
-    const menuScreenWrapper = document.getElementById("menu-screen-wrapper")
+// TODO
+// -migrate all ids to object
+// -migrate all text to object
+// -migrate all classes to object
 
-    const menuScreen = () => {
-        welcomeScreenWrapper.style.display = "none"
+// TODO create a variable holding default language and use it
+// Read about optional chaining and apply it to this file
 
-        const menuHeader = document.createElement("div")
-        menuHeader.id = "menu-header"
+const IDS = {
+    welcomeScreenWrapper: "welcome-screen-wrapper",
+    menuScreenWrapper: "menu-screen-wrapper",
+}
 
-        menuScreenWrapper.appendChild(menuHeader)
+const INNER_TEXTS = {
+    homeButton: "Home",
+    whereYouEat: {
+        en: "Where will you be eating today?",
+        hu: "abc"
+    }
+}
 
-        const homeButton = document.createElement("button")
-        homeButton.id = "home-button"
-        homeButton.innerText = "Home"
-        homeButton.onclick = () => {
-            welcomeScreenWrapper.style.display = "flex"
-            menuScreenWrapper.style.display = "none"
-            welcomeScreen
+const LANGUAGES = {
+    en: "en",
+    hu: "hu"
+}
+
+const mainElement = document.getElementById("main")
+
+    ; (() => {
+        // TODO
+        // replace it with removeAllWrappers
+        const removeWelcomeScreen = () => {
+            const previousWelcomeScreenElement = document.getElementById(IDS.welcomeScreenWrapper)
+            if (previousWelcomeScreenElement) {
+                previousWelcomeScreenElement.remove()
+            }
         }
 
-        menuHeader.appendChild(homeButton)
-    }
+        const removeMenuScreen = () => {
+            const previousWelcomeScreenElement = document.getElementById(IDS.menuScreenWrapper)
+            if (previousWelcomeScreenElement) {
+                previousWelcomeScreenElement.remove()
+            }
+        }
 
-    const welcomeScreen = () => {
-        const logoElement = document.createElement("div")
-        logoElement.id = "logo"
-        logoElement.innerText = "McDonald's logo"
+        // TODO
+        // This function should take the same parameter as the other function
+        const menuScreen = () => {
+            removeMenuScreen()
+            removeWelcomeScreen()
 
-        welcomeScreenWrapper.appendChild(logoElement)
+            const menuScreenWrapper = document.createElement("div")
+            menuScreenWrapper.id = IDS.menuScreenWrapper
+            menuScreenWrapper.className = "wrapper"
 
-        const whereYouEat = document.createElement("h1")
-        whereYouEat.innerText = "Where will you be eating today?"
+            mainElement.appendChild(menuScreenWrapper)
 
-        welcomeScreenWrapper.appendChild(whereYouEat)
+            const menuHeader = document.createElement("div")
+            menuHeader.id = "menu-header"
 
-        const choiceWrapperElement = document.createElement("div")
-        choiceWrapperElement.id = "choice-wrapper"
+            menuScreenWrapper.appendChild(menuHeader)
 
-        welcomeScreenWrapper.appendChild(choiceWrapperElement)
+            const homeButton = document.createElement("button")
+            homeButton.id = "home-button"
+            homeButton.innerText = INNER_TEXTS.homeButton
+            homeButton.onclick = () => {
+                // TODO 
+                // Find out
+                // 1 how to write, single line comments in JS
+                // 2 how to reduce number of spare parens in JS
+                renderWelcomeScreen()
+            }
 
-        const eatInElement = document.createElement("button")
-        eatInElement.id = "eat-in"
-        eatInElement.className = "choice-button"
-        eatInElement.innerText = "Eat in"
-        eatInElement.onclick = menuScreen
+            menuHeader.appendChild(homeButton)
+        }
 
-        choiceWrapperElement.appendChild(eatInElement)
+        const renderWelcomeScreen = (language = LANGUAGES.en) => {
+            removeWelcomeScreen()
+            removeMenuScreen()
 
-        const takeOutelement = document.createElement("button")
-        takeOutelement.id = "take-out"
-        takeOutelement.className = "choice-button"
-        takeOutelement.innerText = "Take out"
-        takeOutelement.onclick = menuScreen
+            const welcomeScreenWrapper = document.createElement("div")
+            welcomeScreenWrapper.id = IDS.welcomeScreenWrapper
+            welcomeScreenWrapper.className = "wrapper"
 
-        choiceWrapperElement.appendChild(takeOutelement)
+            mainElement.appendChild(welcomeScreenWrapper)
 
-        const languageWrapperElement = document.createElement("div")
-        languageWrapperElement.id = "language-wrapper"
+            const logoElement = document.createElement("div")
+            logoElement.id = "logo"
+            logoElement.innerText = "McDonald's logo"
 
-        welcomeScreenWrapper.appendChild(languageWrapperElement)
+            welcomeScreenWrapper.appendChild(logoElement)
 
-        const englishLanguageElement = document.createElement("button")
-        englishLanguageElement.id = "english-language"
-        englishLanguageElement.className = "language-button"
-        englishLanguageElement.innerText = "English"
+            const whereYouEat = document.createElement("h1")
+            whereYouEat.innerText = INNER_TEXTS.whereYouEat[language]
 
-        languageWrapperElement.appendChild(englishLanguageElement)
+            welcomeScreenWrapper.appendChild(whereYouEat)
 
-        const hungarianLanguageElement = document.createElement("button")
-        hungarianLanguageElement.id = "hungarian-language"
-        hungarianLanguageElement.className = "language-button"
-        hungarianLanguageElement.innerText = "Magyar"
+            const choiceWrapperElement = document.createElement("div")
+            choiceWrapperElement.id = "choice-wrapper"
 
-        languageWrapperElement.appendChild(hungarianLanguageElement)
-    }
-    welcomeScreen()
-})();
+            welcomeScreenWrapper.appendChild(choiceWrapperElement)
+
+            // TODO use array.forEach
+            const eatInElement = document.createElement("button")
+            eatInElement.id = "eat-in"
+            eatInElement.className = "choice-button"
+            eatInElement.innerText = "Eat in"
+            eatInElement.onclick = menuScreen
+
+            choiceWrapperElement.appendChild(eatInElement)
+
+            const takeOutelement = document.createElement("button")
+            takeOutelement.id = "take-out"
+            takeOutelement.className = "choice-button"
+            takeOutelement.innerText = "Take out"
+            takeOutelement.onclick = menuScreen
+
+            choiceWrapperElement.appendChild(takeOutelement)
+            // End of TODO
+            const languageWrapperElement = document.createElement("div")
+            languageWrapperElement.id = "language-wrapper"
+
+            welcomeScreenWrapper.appendChild(languageWrapperElement)
+            // I should use for each to automate
+            const englishLanguageElement = document.createElement("button")
+            englishLanguageElement.id = "english-language"
+            englishLanguageElement.className = "language-button"
+            englishLanguageElement.innerText = "English"
+            englishLanguageElement.onclick = () => {
+                renderWelcomeScreen(LANGUAGES.en)
+            }
+
+            languageWrapperElement.appendChild(englishLanguageElement)
+
+            const hungarianLanguageElement = document.createElement("button")
+            hungarianLanguageElement.id = "hungarian-language"
+            hungarianLanguageElement.className = "language-button"
+            hungarianLanguageElement.innerText = "Magyar"
+            hungarianLanguageElement.onclick = () => {
+                renderWelcomeScreen(LANGUAGES.hu)
+            }
+            languageWrapperElement.appendChild(hungarianLanguageElement)
+            //
+        }
+
+        renderWelcomeScreen()
+    })();
