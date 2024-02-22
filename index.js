@@ -1,22 +1,44 @@
-// TODO
-// -migrate all ids to object
-// -migrate all text to object
-// -migrate all classes to object
-
-// TODO create a variable holding default language and use it
-// Read about optional chaining and apply it to this file
-
 const IDS = {
     welcomeScreenWrapper: "welcome-screen-wrapper",
     menuScreenWrapper: "menu-screen-wrapper",
+    menuHeader: "menu-header",
+    homeButton: "home-button",
+    logoElement: "logo",
+    choiceWrapperElement: "choice-wrapper",
+    eatInElement: "eat-in",
+    takeOutelement: "take-out",
+    languageWrapperElement: "language-wrapper",
+    englishLanguageElement: "english-language",
+    hungarianLanguageElement: "hungarian-language",
 }
 
 const INNER_TEXTS = {
-    homeButton: "Home",
+    logoElement: "McDonald's logo",
+    englishLanguageElement: "English",
+    hungarianLanguageElement: "Magyar",
+    homeButton: {
+        en: "Home",
+        hu: "Kezdolap"
+    },
     whereYouEat: {
         en: "Where will you be eating today?",
-        hu: "abc"
-    }
+        hu: "Helyben fogyasztasz, vagy elivetre?"
+    },
+    eatInElement: {
+        en: "Eat in",
+        hu: "Helyben"
+    },
+    takeOutelement: {
+        en: "Take out",
+        hu: "Elviszem"
+    },
+}
+
+const CLASS_NAMES = {
+    screenWrapper: "screen-wrapper",
+    buttonWrapperElement: "button-wrapper",
+    choiceButtonElement: "choice-button",
+    languageElement: "language-button",
 }
 
 const LANGUAGES = {
@@ -24,7 +46,9 @@ const LANGUAGES = {
     hu: "hu"
 }
 
-const mainElement = document.getElementById("main")
+const defaultLanguage = LANGUAGES ? LANGUAGES.en : LANGUAGES.hu
+
+const mainElement = document.querySelector("main")
 
     ; (() => {
         // TODO
@@ -51,17 +75,17 @@ const mainElement = document.getElementById("main")
 
             const menuScreenWrapper = document.createElement("div")
             menuScreenWrapper.id = IDS.menuScreenWrapper
-            menuScreenWrapper.className = "wrapper"
+            menuScreenWrapper.className = CLASS_NAMES.screenWrapper
 
             mainElement.appendChild(menuScreenWrapper)
 
             const menuHeader = document.createElement("div")
-            menuHeader.id = "menu-header"
+            menuHeader.id = IDS.menuHeader
 
             menuScreenWrapper.appendChild(menuHeader)
 
             const homeButton = document.createElement("button")
-            homeButton.id = "home-button"
+            homeButton.id = IDS.homeButton
             homeButton.innerText = INNER_TEXTS.homeButton
             homeButton.onclick = () => {
                 // TODO 
@@ -74,19 +98,19 @@ const mainElement = document.getElementById("main")
             menuHeader.appendChild(homeButton)
         }
 
-        const renderWelcomeScreen = (language = LANGUAGES.en) => {
+        const renderWelcomeScreen = (language = defaultLanguage) => {
             removeWelcomeScreen()
             removeMenuScreen()
 
             const welcomeScreenWrapper = document.createElement("div")
             welcomeScreenWrapper.id = IDS.welcomeScreenWrapper
-            welcomeScreenWrapper.className = "wrapper"
+            welcomeScreenWrapper.className = CLASS_NAMES.screenWrapper
 
             mainElement.appendChild(welcomeScreenWrapper)
 
             const logoElement = document.createElement("div")
-            logoElement.id = "logo"
-            logoElement.innerText = "McDonald's logo"
+            logoElement.id = IDS.logoElement
+            logoElement.innerText = INNER_TEXTS.logoElement
 
             welcomeScreenWrapper.appendChild(logoElement)
 
@@ -96,36 +120,38 @@ const mainElement = document.getElementById("main")
             welcomeScreenWrapper.appendChild(whereYouEat)
 
             const choiceWrapperElement = document.createElement("div")
-            choiceWrapperElement.id = "choice-wrapper"
+            choiceWrapperElement.id = IDS.choiceWrapperElement
+            choiceWrapperElement.className = CLASS_NAMES.buttonWrapperElement
 
             welcomeScreenWrapper.appendChild(choiceWrapperElement)
 
             // TODO use array.forEach
             const eatInElement = document.createElement("button")
-            eatInElement.id = "eat-in"
-            eatInElement.className = "choice-button"
-            eatInElement.innerText = "Eat in"
+            eatInElement.id = IDS.eatInElement
+            eatInElement.className = CLASS_NAMES.choiceButtonElement
+            eatInElement.innerText = INNER_TEXTS.eatInElement[language]
             eatInElement.onclick = menuScreen
 
             choiceWrapperElement.appendChild(eatInElement)
 
             const takeOutelement = document.createElement("button")
-            takeOutelement.id = "take-out"
-            takeOutelement.className = "choice-button"
-            takeOutelement.innerText = "Take out"
+            takeOutelement.id = IDS.takeOutelement
+            takeOutelement.className = CLASS_NAMES.choiceButtonElement
+            takeOutelement.innerText = INNER_TEXTS.takeOutelement[language]
             takeOutelement.onclick = menuScreen
 
             choiceWrapperElement.appendChild(takeOutelement)
             // End of TODO
             const languageWrapperElement = document.createElement("div")
-            languageWrapperElement.id = "language-wrapper"
+            languageWrapperElement.id = IDS.languageWrapperElement
+            languageWrapperElement.className = CLASS_NAMES.buttonWrapperElement
 
             welcomeScreenWrapper.appendChild(languageWrapperElement)
             // I should use for each to automate
             const englishLanguageElement = document.createElement("button")
-            englishLanguageElement.id = "english-language"
-            englishLanguageElement.className = "language-button"
-            englishLanguageElement.innerText = "English"
+            englishLanguageElement.id = IDS.englishLanguageElement
+            englishLanguageElement.className = CLASS_NAMES.languageElement
+            englishLanguageElement.innerText = INNER_TEXTS.englishLanguageElement
             englishLanguageElement.onclick = () => {
                 renderWelcomeScreen(LANGUAGES.en)
             }
@@ -133,9 +159,9 @@ const mainElement = document.getElementById("main")
             languageWrapperElement.appendChild(englishLanguageElement)
 
             const hungarianLanguageElement = document.createElement("button")
-            hungarianLanguageElement.id = "hungarian-language"
-            hungarianLanguageElement.className = "language-button"
-            hungarianLanguageElement.innerText = "Magyar"
+            hungarianLanguageElement.id = IDS.hungarianLanguageElement
+            hungarianLanguageElement.className = CLASS_NAMES.languageElement
+            hungarianLanguageElement.innerText = INNER_TEXTS.hungarianLanguageElement
             hungarianLanguageElement.onclick = () => {
                 renderWelcomeScreen(LANGUAGES.hu)
             }
@@ -145,3 +171,5 @@ const mainElement = document.getElementById("main")
 
         renderWelcomeScreen()
     })();
+
+// Investigate how to format code automatically in VS code for html files

@@ -18,7 +18,7 @@ main {
     width: 100%;
 }
 
-.wrapper {
+.screen-wrapper {
     border: 2px solid blue;
     background-color: burlywood;
     height: 100%;
@@ -31,19 +31,15 @@ main {
 
 #logo {
     border: 2px solid green;
-    height: 100px;
-    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 150px;
     margin-top: 50px;
-    // TODO center it
 }
 
-#where-you-eat {
-    border: 2px solid green;
-}
-
-// TODO replace with class
-#choice-wrapper,
-#language-wrapper {
+.button-wrapper {
     border: 2px solid green;
     display: flex;
     gap: 50px;
@@ -51,7 +47,7 @@ main {
 
 .choice-button {
     font-size: 50px;
-    width: 200px;
+    width: 250px;
 }
 
 .language-button {
