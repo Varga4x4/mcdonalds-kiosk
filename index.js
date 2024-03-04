@@ -50,6 +50,66 @@ const INNER_TEXTS = {
         en: "View my order",
         hu: "Rendeles megtekintese"
     },
+    burgers: {
+        en: "Burgers",
+        hu: "Burgerek"
+    },
+    chickenAndFish: {
+        en: "Chicken & Fish",
+        hu: "Csirke es Hal"
+    },
+    signatureCraftedBurgers: {
+        en: "Signature Crafted Burgers",
+        hu: "Signature Burgerek"
+    },
+    mcCafe: {
+        en: "McCafe",
+        hu: "McCafe"
+    },
+    happyMeal: {
+        en: "Happy Meal",
+        hu: "Happy Meal"
+    },
+    beverages: {
+        en: "Beverages",
+        hu: "Italok"
+    },
+    sweetTreats: {
+        en: "Sweet Treats",
+        hu: "Edessegek"
+    },
+    salad: {
+        en: "Salad",
+        hu: "Salatak"
+    },
+    milkshakesAndIcecreams: {
+        en: "Milkshakes & Icecreams",
+        hu: "Shekek es fagylaltok"
+    },
+    coldDrinks: {
+        en: "Cold Drinks",
+        hu: "Hideg Italok"
+    },
+    hotDrinks: {
+        en: "Hot Drinks",
+        hu: "Meleg Italok"
+    },
+    meals: {
+        en: "Meals",
+        hu: "Menuk"
+    },
+    sides: {
+        en: "Sides",
+        hu: "Koretek"
+    },
+    saversMeals: {
+        en: "Savers Meals",
+        hu: "Takarekos Menuk"
+    },
+    signatureMeals: {
+        en: "Signature Meals",
+        hu: "Signature Menuk"
+    },
 }
 
 const CLASS_NAMES = {
@@ -60,6 +120,8 @@ const CLASS_NAMES = {
     choiceButtonElement: "choice-button",
     languageElement: "language-button",
     languageIconElement: "language-icon",
+    gridMenuElement: "grid-menu-element",
+    slideMenuElement: "slide-menu-element",
 }
 
 const IMAGES = {
@@ -71,6 +133,26 @@ const IMAGES = {
 const LANGUAGES = ["en", "hu"]
 const EATING_OPTIONS = ["eatInElement", "takeOutElement"]
 const LANGUAGE_ELEMENTS = ["englishLanguageElement", "hungarianLanguageElement"]
+const MAIN_MENU_GRID_ELEMENTS = [
+    "burgers",
+    "chickenAndFish",
+    "signatureCraftedBurgers",
+    "mcCafe",
+    "happyMeal",
+    "beverages",
+    "sweetTreats",
+    "salad",
+]
+const MAIN_MENU_SLIDE_ELEMENTS = [
+    "milkshakesAndIcecreams",
+    "coldDrinks",
+    "hotDrinks",
+    "meals",
+    "sides",
+    "saversMeals",
+    "happyMeal",
+    "signatureMeals",
+]
 
 const DEFAULT_LANGUAGE = LANGUAGES[0]
 
@@ -120,10 +202,26 @@ const mainElement = document.querySelector("main")
 
             menuWrapperElement.appendChild(slidingMenuWrapperElement)
 
+            MAIN_MENU_SLIDE_ELEMENTS.forEach((key) => {
+                const slideMenuElement = document.createElement("button")
+                slideMenuElement.innerText = INNER_TEXTS[key][language]
+                slideMenuElement.className = CLASS_NAMES.slideMenuElement
+
+                slidingMenuWrapperElement.appendChild(slideMenuElement)
+            })
+
             const gridMenuWrapperElement = document.createElement("div")
             gridMenuWrapperElement.id = IDS.gridMenuWrapperElement
 
             menuWrapperElement.appendChild(gridMenuWrapperElement)
+
+            MAIN_MENU_GRID_ELEMENTS.forEach((key) => {
+                const gridMenuElement = document.createElement("button")
+                gridMenuElement.innerText = INNER_TEXTS[key][language]
+                gridMenuElement.className = CLASS_NAMES.gridMenuElement
+
+                gridMenuWrapperElement.appendChild(gridMenuElement)
+            })
 
             const choosenEatingOptionWrapper = document.createElement("div")
             choosenEatingOptionWrapper.id = IDS.choosenEatingOptionWrapper
