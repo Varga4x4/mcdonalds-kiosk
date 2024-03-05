@@ -16,6 +16,7 @@ const IDS = {
     choosenEatingOptionWrapper: "choosen-eating-wrapper",
     displayElement: "display-element",
     viewOrderButtonElement: "view-order-element",
+    payOrCancelButtonsWrapperElement: "pay-cancel-wrapper"
 }
 
 const INNER_TEXTS = {
@@ -110,6 +111,14 @@ const INNER_TEXTS = {
         en: "Signature Meals",
         hu: "Signature Menuk"
     },
+    payButton: {
+        en: "Pay",
+        hu: "Fizetes"
+    },
+    cancelButton: {
+        en: "Cancel",
+        hu: "Rendeles Torlese"
+    }
 }
 
 const CLASS_NAMES = {
@@ -122,6 +131,7 @@ const CLASS_NAMES = {
     languageIconElement: "language-icon",
     gridMenuElement: "grid-menu-element",
     slideMenuElement: "slide-menu-element",
+    payOrCancelButtonsElement: "pay-or-cancel-button"
 }
 
 const IMAGES = {
@@ -153,6 +163,7 @@ const MAIN_MENU_SLIDE_ELEMENTS = [
     "happyMeal",
     "signatureMeals",
 ]
+const PAY_OR_CANCEL_BUTTON_ELEMENTS = ["payButton", "cancelButton"]
 
 const DEFAULT_LANGUAGE = LANGUAGES[0]
 
@@ -239,6 +250,19 @@ const mainElement = document.querySelector("main")
             viewOrderButtonElement.innerText = INNER_TEXTS.viewOrderButtonElement[language]
 
             displayElement.appendChild(viewOrderButtonElement)
+
+            const payOrCancelButtonsWrapperElement = document.createElement("div")
+            payOrCancelButtonsWrapperElement.id = IDS.payOrCancelButtonsWrapperElement
+
+            menuScreenWrapper.appendChild(payOrCancelButtonsWrapperElement)
+
+            PAY_OR_CANCEL_BUTTON_ELEMENTS.forEach((key) => {
+                const payOrCancelButtonsElement = document.createElement("button")
+                payOrCancelButtonsElement.innerText = INNER_TEXTS[key][language]
+                payOrCancelButtonsElement.className = CLASS_NAMES.payOrCancelButtonsElement
+
+                payOrCancelButtonsWrapperElement.appendChild(payOrCancelButtonsElement)
+            })
         }
 
         const renderWelcomeScreen = (language = DEFAULT_LANGUAGE) => {
