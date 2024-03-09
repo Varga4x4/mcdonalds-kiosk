@@ -22,7 +22,7 @@ const INNER_TEXTS = {
     },
     whereYouEat: {
         en: "Where will you be eating today?",
-        hu: "Helyben fogyasztasz, vagy elivetre?"
+        hu: "Helyben fogyasztasz, vagy elvitelre?"
     },
     eatInElement: {
         en: "Eat in",
@@ -37,8 +37,17 @@ const INNER_TEXTS = {
 const CLASS_NAMES = {
     screenWrapper: "screen-wrapper",
     buttonWrapperElement: "button-wrapper",
+    eatingOptionsElementWrapper: "eating-wrapper",
+    eatingOptionsImageElement: "eating-image",
     choiceButtonElement: "choice-button",
     languageElement: "language-button",
+    languageIconElement: "language-icon",
+}
+
+const IMAGES = {
+    mcDonaldsLogo: "https://upload.wikimedia.org/wikipedia/commons/3/36/McDonald%27s_Golden_Arches.svg",
+    eatInElement: "https://www.foodandwine.com/thmb/_Bfuv0FsNMVExh12yJBAIlnIIRY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/McDonalds-Hacks-Menu-FT-1-BLOG0122-4ac9d62f6c9143be8da3d0a8553348b0.jpg",
+    takeOutelement: "https://i2-prod.mirror.co.uk/incoming/article29776846.ece/ALTERNATES/s1200d/1_McDonalds-Corp-Trials-Table-Service-At-UK-Restaurant.jpg",
 }
 
 const LANGUAGES = ["en", "hu"]
@@ -88,9 +97,9 @@ const mainElement = document.querySelector("main")
 
             mainElement.appendChild(welcomeScreenWrapper)
 
-            const logoElement = document.createElement("div")
+            const logoElement = new Image(150, 150)
             logoElement.id = IDS.logoElement
-            logoElement.innerText = INNER_TEXTS.logoElement
+            logoElement.src = IMAGES.mcDonaldsLogo
 
             welcomeScreenWrapper.appendChild(logoElement)
 
@@ -105,14 +114,25 @@ const mainElement = document.querySelector("main")
 
             welcomeScreenWrapper.appendChild(choiceWrapperElement)
 
-            EATING_OPTIONS.forEach((key) => {
+            EATING_OPTIONS.forEach((key, index) => {
+                const eatingOptionsElementWrapper = document.createElement("div")
+                eatingOptionsElementWrapper.className = CLASS_NAMES.eatingOptionsElementWrapper
+
+                choiceWrapperElement.appendChild(eatingOptionsElementWrapper)
+
+                const eatingOptionsImageElement = new Image(170, 170)
+                eatingOptionsImageElement.className = CLASS_NAMES.eatingOptionsImageElement
+                eatingOptionsImageElement.src = IMAGES[key]
+
+                eatingOptionsElementWrapper.appendChild(eatingOptionsImageElement)
+
                 const eatingOptionsButtonElement = document.createElement("button")
                 eatingOptionsButtonElement.id = IDS[key]
                 eatingOptionsButtonElement.className = CLASS_NAMES.choiceButtonElement
                 eatingOptionsButtonElement.innerText = INNER_TEXTS[key][language]
                 eatingOptionsButtonElement.onclick = () => renderMenuScreen(language)
 
-                choiceWrapperElement.appendChild(eatingOptionsButtonElement)
+                eatingOptionsElementWrapper.appendChild(eatingOptionsButtonElement)
             })
 
             const languageWrapperElement = document.createElement("div")
@@ -129,11 +149,14 @@ const mainElement = document.querySelector("main")
                 languageButtonElement.onclick = () => renderWelcomeScreen(LANGUAGES[index])
 
                 languageWrapperElement.appendChild(languageButtonElement)
+
+                const languageIconElement = document.createElement("div")
+                languageIconElement.className = CLASS_NAMES.languageIconElement
+                languageIconElement.innerText = LANGUAGES[index].toUpperCase()
+
+                languageButtonElement.appendChild(languageIconElement)
             })
         }
 
         renderWelcomeScreen()
     })();
-
-// TODO The whole app shoould be centered vetically and horizontally, should have 100VP
-// Investigate how to format code automatically in VS code for html files
