@@ -6,10 +6,16 @@ const IDS = {
     logoElement: "logo",
     choiceWrapperElement: "choice-wrapper",
     eatInElement: "eat-in",
-    takeOutelement: "take-out",
+    takeOutElement: "take-out",
     languageWrapperElement: "language-wrapper",
     englishLanguageElement: "english-language",
     hungarianLanguageElement: "hungarian-language",
+    menuWrapperElement: "menu-wrapper",
+    slidingMenuWrapperElement: "sliding-wrapper",
+    gridMenuWrapperElement: "grid-wrapper",
+    choosenEatingOptionWrapper: "choosen-eating-wrapper",
+    displayElement: "display-element",
+    viewOrderButtonElement: "view-order-element",
 }
 
 const INNER_TEXTS = {
@@ -28,9 +34,21 @@ const INNER_TEXTS = {
         en: "Eat in",
         hu: "Helyben"
     },
-    takeOutelement: {
+    takeOutElement: {
         en: "Take out",
         hu: "Elviszem"
+    },
+    mainMenuElement: {
+        en: "Main Menu",
+        hu: "Fomenu"
+    },
+    displayElement: {
+        en: "Total: ",
+        hu: "Osszesen: ",
+    },
+    viewOrderButtonElement: {
+        en: "View my order",
+        hu: "Rendeles megtekintese"
     },
 }
 
@@ -47,11 +65,11 @@ const CLASS_NAMES = {
 const IMAGES = {
     mcDonaldsLogo: "https://upload.wikimedia.org/wikipedia/commons/3/36/McDonald%27s_Golden_Arches.svg",
     eatInElement: "https://www.foodandwine.com/thmb/_Bfuv0FsNMVExh12yJBAIlnIIRY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/McDonalds-Hacks-Menu-FT-1-BLOG0122-4ac9d62f6c9143be8da3d0a8553348b0.jpg",
-    takeOutelement: "https://i2-prod.mirror.co.uk/incoming/article29776846.ece/ALTERNATES/s1200d/1_McDonalds-Corp-Trials-Table-Service-At-UK-Restaurant.jpg",
+    takeOutElement: "https://i2-prod.mirror.co.uk/incoming/article29776846.ece/ALTERNATES/s1200d/1_McDonalds-Corp-Trials-Table-Service-At-UK-Restaurant.jpg",
 }
 
 const LANGUAGES = ["en", "hu"]
-const EATING_OPTIONS = ["eatInElement", "takeOutelement"]
+const EATING_OPTIONS = ["eatInElement", "takeOutElement"]
 const LANGUAGE_ELEMENTS = ["englishLanguageElement", "hungarianLanguageElement"]
 
 const DEFAULT_LANGUAGE = LANGUAGES[0]
@@ -86,6 +104,43 @@ const mainElement = document.querySelector("main")
             homeButton.onclick = () => renderWelcomeScreen(language)
 
             menuHeader.appendChild(homeButton)
+
+            const mainMenuElement = document.createElement("h1")
+            mainMenuElement.innerText = INNER_TEXTS.mainMenuElement[language]
+
+            menuHeader.appendChild(mainMenuElement)
+
+            const menuWrapperElement = document.createElement("div")
+            menuWrapperElement.id = IDS.menuWrapperElement
+
+            menuScreenWrapper.appendChild(menuWrapperElement)
+
+            const slidingMenuWrapperElement = document.createElement("div")
+            slidingMenuWrapperElement.id = IDS.slidingMenuWrapperElement
+
+            menuWrapperElement.appendChild(slidingMenuWrapperElement)
+
+            const gridMenuWrapperElement = document.createElement("div")
+            gridMenuWrapperElement.id = IDS.gridMenuWrapperElement
+
+            menuWrapperElement.appendChild(gridMenuWrapperElement)
+
+            const choosenEatingOptionWrapper = document.createElement("div")
+            choosenEatingOptionWrapper.id = IDS.choosenEatingOptionWrapper
+
+            menuScreenWrapper.appendChild(choosenEatingOptionWrapper)
+
+            const displayElement = document.createElement("div")
+            displayElement.id = IDS.displayElement
+            displayElement.innerText = INNER_TEXTS.displayElement[language]
+
+            menuScreenWrapper.appendChild(displayElement)
+
+            const viewOrderButtonElement = document.createElement("button")
+            viewOrderButtonElement.id = IDS.viewOrderButtonElement
+            viewOrderButtonElement.innerText = INNER_TEXTS.viewOrderButtonElement[language]
+
+            displayElement.appendChild(viewOrderButtonElement)
         }
 
         const renderWelcomeScreen = (language = DEFAULT_LANGUAGE) => {
